@@ -5,10 +5,6 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 
 import gnu.io.*;
-import oracle.jrockit.jfr.JFR;
-
-import javax.swing.*;
-
 
 public class SerialCon implements SerialPortEventListener {
     SerialPort serialPort;
