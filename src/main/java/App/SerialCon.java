@@ -1,3 +1,4 @@
+package App;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -94,7 +95,7 @@ public class SerialCon implements SerialPortEventListener {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
 
-                if(SQLFunctions.insertaAcceso(SQLFunctions.getConnection(),"wq",1)>0){
+                //if(SQLFunctions.insertaAcceso(SQLFunctions.getConnection(),"wq",1)>0){
                     System.out.println("Acceso autorizado");
                 }
             } catch (Exception e) {
@@ -105,9 +106,9 @@ public class SerialCon implements SerialPortEventListener {
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
 
-    public static void main(String[] args) throws Exception {
-        SerialCon main = new SerialCon();
-        InterfazSaldo ventana= new InterfazSaldo();
+    /*public static void main(String[] args) throws Exception {
+        App.SerialCon main = new App.SerialCon();
+        AgregarSaldo ventana= new AgregarSaldo();
 
         ventana.main(null);
 
@@ -123,5 +124,5 @@ public class SerialCon implements SerialPortEventListener {
         };
         t.start();
         System.out.println("Empezó");
-    }
+    }*/
 }
