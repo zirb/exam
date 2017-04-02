@@ -18,7 +18,6 @@ public class DAOAccesoImpl extends Conexion implements DAOAcceso {
             pst.setBoolean(3,acc.isDentro());
             pst.executeUpdate();
         }catch(SQLException e){
-            System.err.print(e.toString());
             throw e;
         }finally {
             this.cerrar();

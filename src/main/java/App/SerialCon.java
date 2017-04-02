@@ -102,33 +102,16 @@ public class SerialCon implements SerialPortEventListener {
             try {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
-                Acceso acc = new Acceso();
-                acc.setId(inputLine);
-                acc.setFecha((Date) new java.util.Date());
-                acc.setDentro(true);
-                try{
-                    DAOAcceso daoacc = new DAOAccesoImpl();
-                    daoacc.registrar(acc);
-                    System.out.println("Acceso autorizado");
-                    try {
-                        DAOUsuario daousr = new DAOUsuarioImpl();
-                        Usuario user = new Usuario();
-                        user=daousr.listar(acc.getId());
-                        Correos.manda(user.getCorreo(),"Su saldo es de "+user.getSaldo()+" pesos");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }catch (SQLException s){
-                    System.out.println("Acceso no autorizado");
-                }
-                //if(SQLFunctions.insertaAcceso(SQLFunctions.getConnection(),"wq",1)>0){System.out.println("Acceso autorizado");}
-
+                int res=Autorizar_acceso.insert_access(inputLine);
+                System.out.println(res+48);
+                output.write(res+48);
             } catch (IOException e) {
                 System.err.println(e.toString());
             }
         }
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
+
 
     /*public static void main(String[] args) throws Exception {
         App.SerialCon main = new App.SerialCon();
