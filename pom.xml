@@ -7,6 +7,12 @@
     <groupId>exam</groupId>
     <artifactId>exam</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -19,11 +25,15 @@
             <artifactId>rxtxcomm</artifactId>
             <version>2.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>3.2.0</version>
         </dependency>
+
+
+
 
 
     </dependencies>

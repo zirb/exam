@@ -1,11 +1,19 @@
 package App;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Enumeration;
 
+import App.dao.DAOAccesoImpl;
+import App.dao.DAOUsuarioImpl;
+import com.mysql.cj.jdbc.exceptions.MySQLQueryInterruptedException;
 import gnu.io.*;
+import interfaces.DAOAcceso;
+import interfaces.DAOUsuario;
 
 public class SerialCon implements SerialPortEventListener {
     SerialPort serialPort;
@@ -94,13 +102,29 @@ public class SerialCon implements SerialPortEventListener {
             try {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
-
-                //if(SQLFunctions.insertaAcceso(SQLFunctions.getConnection(),"wq",1)>0){
+                Acceso acc = new Acceso();
+                acc.setId(inputLine);
+                acc.setFecha((Date) new java.util.Date());
+                acc.setDentro(true);
+                try{
+                    DAOAcceso daoacc = new DAOAccesoImpl();
+                    daoacc.registrar(acc);
                     System.out.println("Acceso autorizado");
+                    try {
+                        DAOUsuario daousr = new DAOUsuarioImpl();
+                        Usuario user = new Usuario();
+                        user=daousr.listar(acc.getId());
+                        Correos.manda(user.getCorreo(),"Su saldo es de "+user.getSaldo()+" pesos");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }catch (SQLException s){
+                    System.out.println("Acceso no autorizado");
                 }
-            } catch (Exception e) {
+                //if(SQLFunctions.insertaAcceso(SQLFunctions.getConnection(),"wq",1)>0){System.out.println("Acceso autorizado");}
+
+            } catch (IOException e) {
                 System.err.println(e.toString());
-                System.out.println("Acceso no autorizado");
             }
         }
         // Ignore all the other eventTypes, but you should consider the other ones.

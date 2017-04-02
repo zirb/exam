@@ -6,6 +6,24 @@ package App;
 public class Usuario {
     private String id;
     private String nombre;
+    private String correo;
+    private float saldo;
+
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getNombre() {
         return nombre;

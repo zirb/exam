@@ -34,15 +34,16 @@ public class SQLFunctions {
         return con;
     }
 
-    public static Integer insertaAcceso(Connection con,String id,int dentro)
+    public static Integer insertaAcceso(Connection con,String id,Date fecha,boolean dentro)
             throws SQLException {
         String query = "INSERT INTO accesos (id, fecha, dentro)\n" +
-                "VALUES (?,now(),?);";
+                "VALUES (?,?,?);";
         PreparedStatement stmt = con.prepareStatement(query);
         int rs=0;
         try {
             stmt.setString(1, id);
-            stmt.setInt(2, dentro);
+            stmt.setDate(2, fecha);
+            stmt.setBoolean(3, dentro);
             rs = stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.print(e.getSQLState());
