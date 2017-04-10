@@ -25,12 +25,13 @@ public class Autorizar_acceso {
             DAOAcceso daoacc = new DAOAccesoImpl();
             daoacc.registrar(acc);
             System.out.println("Acceso autorizado");
+
             res=1;
             try {
                 DAOUsuario daousr = new DAOUsuarioImpl();
                 Usuario user = null;
                 user = daousr.listar(acc.getId());
-                Correos.manda(user.getCorreo(), "Hola " + user.getNombre() + ". Su saldo es de " + user.getSaldo() + " pesos");
+                //Correos.manda(user.getCorreo(), "Hola " + user.getNombre() + ". Su saldo es de " + user.getSaldo() + " pesos");
                 try{}catch (Exception e){}
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,"La dirección de correo no es valida","Error",JOptionPane.ERROR_MESSAGE);

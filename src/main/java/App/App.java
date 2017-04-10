@@ -30,6 +30,7 @@ public class App {
             }
         };
         t.start();
+
         System.out.println("Empezó");
         //System.out.print(Autorizar_acceso.insert_access("3"));
     }

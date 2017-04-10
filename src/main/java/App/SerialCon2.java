@@ -10,21 +10,21 @@ import java.util.Enumeration;
 import gnu.io.*;
 
 
-public class SerialCon implements SerialPortEventListener {
+public class SerialCon2  {
     SerialPort serialPort;
     /** The port we're normally going to use. */
     private static final String PORT_NAMES[] = {
             "/dev/tty.usbserial-A9007UX1", // Mac OS X
             "/dev/ttyACM0", // Raspberry Pi
             "/dev/ttyUSB0", // Linux
-            "COM4", // Windows
+            "COM5", // Windows
     };
     /**
      * A BufferedReader which will be fed by a InputStreamReader
      * converting the bytes into characters
      * making the displayed results codepage independent
      */
-    private BufferedReader input;
+
     /** The output stream to the port */
     private OutputStream output;
     /** Milliseconds to block while waiting for port open */
@@ -67,12 +67,15 @@ public class SerialCon implements SerialPortEventListener {
                     SerialPort.PARITY_NONE);
 
             // open the streams
-            input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
+
             output = serialPort.getOutputStream();
 
-            // add event listeners
-            serialPort.addEventListener(this);
-            serialPort.notifyOnDataAvailable(true);
+            // send event
+            output.write(48);
+            this.serialPort.close();
+
+
+
         } catch (Exception e) {
             System.err.println(e.toString());
         }
@@ -84,7 +87,6 @@ public class SerialCon implements SerialPortEventListener {
      */
     public synchronized void close() {
         if (serialPort != null) {
-            serialPort.removeEventListener();
             serialPort.close();
         }
     }
@@ -92,38 +94,6 @@ public class SerialCon implements SerialPortEventListener {
     /**
      * Handle an event on the serial port. Read the data and print it.
      */
-    public synchronized void serialEvent(SerialPortEvent oEvent) {
-        if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-            try {
-                String inputLine=input.readLine();
-                System.out.println(inputLine);
-                final int res=Autorizar_acceso.insert_access(inputLine);
-                if(res==1){
-                    SerialCon2 serial2 = new SerialCon2();
-                    serial2.initialize();
-                    Thread t2=new Thread() {
-                        public void run() {
-                            //the following line will keep this app alive for 1000 seconds,
-                            //waiting for events to occur and responding to them (printing incoming messages to console).
-                            try {
 
-                                Thread.sleep(1000);
-
-                            }
-                            catch (InterruptedException ie) {
-                                System.out.print(ie.toString());
-                            }
-                        }
-                    };
-                    t2.start();
-
-                }
-
-            } catch (Exception e) {
-                System.err.println(e.toString());
-                System.out.print("Error en la lectura");
-            }
-        }
         // Ignore all the other eventTypes, but you should consider the other ones.
     }
-}

@@ -22,9 +22,9 @@ public class Conexion {
         }
     }
     public void cerrar() throws SQLException {
-       if (conexion!=null){
-           if (!conexion.isClosed()){
-               conexion.close();
+       if (this.conexion!=null){
+           if (!this.conexion.isClosed()){
+               this.conexion.close();
            }
        }
 
