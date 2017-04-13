@@ -32,15 +32,20 @@ public class DAOUsuarioImpl extends Conexion implements DAOUsuario {
     public void modificar(Usuario user) throws SQLException {
         try{
             this.conectar();
-            PreparedStatement pst = this.conexion.prepareStatement("UPDATE Users set saldo = saldo + ? where id = ?");
+            PreparedStatement pst = this.conexion.prepareStatement("UPDATE Users set saldo = saldo + ? where nombre = ?");
             pst.setFloat(1,user.getSaldo());
-            pst.setString(2,user.getId());
-            pst.executeUpdate();
+            pst.setString(2,user.getNombre());
+            Integer i = pst.executeUpdate();
+            if(i==0){
+                SQLException e2 = new SQLException();
+                throw e2;
+            }
         }catch(SQLException e){
             throw e;
         }finally {
             this.cerrar();
         }
+
     }
 
     public void eliminar(Usuario user) throws SQLException {

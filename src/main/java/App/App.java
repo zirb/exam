@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class App {
     public static void main(String[] args) {
-       AgregarSaldo.main(args);
+       Menu.main(null);
 
         SerialCon serial = new SerialCon();
         serial.initialize();

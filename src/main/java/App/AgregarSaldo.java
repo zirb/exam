@@ -28,7 +28,7 @@ public class AgregarSaldo extends JFrame {
         agregarSaldoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Usuario user = new Usuario();
-                user.setId(textField1.getText());
+                user.setNombre(textField1.getText());
                 try {
                     user.setSaldo(parseFloat(textField2.getText()));
                 }catch (Exception err){
@@ -37,6 +37,7 @@ public class AgregarSaldo extends JFrame {
                 try{
                     DAOUsuario daousr = new DAOUsuarioImpl();
                     daousr.modificar(user);
+                    JOptionPane.showMessageDialog(null,"Saldo cargado","Correcto",JOptionPane.INFORMATION_MESSAGE);
                 }catch (SQLException sqlerr){
                     JOptionPane.showMessageDialog(null,"El usuario no fue encontrado","Error",JOptionPane.ERROR_MESSAGE);
                 }
@@ -48,7 +49,7 @@ public class AgregarSaldo extends JFrame {
     public static void main(String[] args) {
         JFrame ventana = new JFrame();
         ventana.setContentPane(new AgregarSaldo().panel1);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventana.pack();
         ventana.setVisible(true);
     }

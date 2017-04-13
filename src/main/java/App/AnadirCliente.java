@@ -36,6 +36,7 @@ public class AnadirCliente extends JFrame {
                 try{
                     DAOUsuario daousr = new DAOUsuarioImpl();
                     daousr.registrar(user);
+                    JOptionPane.showMessageDialog(null,"Usuario registrado","Correcto",JOptionPane.INFORMATION_MESSAGE);
                 }catch (SQLException sqlerr){
                     JOptionPane.showMessageDialog(null,"El usuario no fue encontrado","Error",JOptionPane.ERROR_MESSAGE);
                 }
@@ -46,7 +47,7 @@ public class AnadirCliente extends JFrame {
     public static void main(String[] args) {
         JFrame ventana = new JFrame();
         ventana.setContentPane(new AnadirCliente().panel1);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventana.pack();
         ventana.setVisible(true);
     }

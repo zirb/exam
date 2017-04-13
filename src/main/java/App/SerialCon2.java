@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.Enumeration;
 
 
@@ -32,7 +33,7 @@ public class SerialCon2  {
     /** Default bits per second for COM port. */
     private static final int DATA_RATE = 9600;
 
-    public void initialize() {
+    public void initialize(String texto) {
         // the next line is for Raspberry Pi and
         // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
         //System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
@@ -51,7 +52,7 @@ public class SerialCon2  {
             }
         }
         if (portId == null) {
-            System.out.println("No se pudo encontrar el puerto.");
+            System.out.println("No se pudo encontrar el puerto del LCD");
             return;
         }
 
@@ -69,9 +70,12 @@ public class SerialCon2  {
             // open the streams
 
             output = serialPort.getOutputStream();
+            (new Thread(new SerialWriter(this.output))).start();
 
-            // send event
-            output.write(48);
+            Thread.sleep(1500);//se puede cambiar a 4000 pero es mas lento
+            this.output.write(texto.getBytes());
+            output.close();
+
             this.serialPort.close();
 
 
@@ -90,6 +94,7 @@ public class SerialCon2  {
             serialPort.close();
         }
     }
+
 
     /**
      * Handle an event on the serial port. Read the data and print it.

@@ -51,7 +51,7 @@ public class SerialCon implements SerialPortEventListener {
             }
         }
         if (portId == null) {
-            System.out.println("No se pudo encontrar el puerto.");
+            System.out.println("No se pudo encontrar el puerto del RFID");
             return;
         }
 
@@ -97,29 +97,8 @@ public class SerialCon implements SerialPortEventListener {
             try {
                 String inputLine=input.readLine();
                 System.out.println(inputLine);
-                final int res=Autorizar_acceso.insert_access(inputLine);
-                if(res==1){
-                    SerialCon2 serial2 = new SerialCon2();
-                    serial2.initialize();
-                    Thread t2=new Thread() {
-                        public void run() {
-                            //the following line will keep this app alive for 1000 seconds,
-                            //waiting for events to occur and responding to them (printing incoming messages to console).
-                            try {
-
-                                Thread.sleep(1000);
-
-                            }
-                            catch (InterruptedException ie) {
-                                System.out.print(ie.toString());
-                            }
-                        }
-                    };
-                    t2.start();
-
-                }
-
-            } catch (Exception e) {
+                int res=Autorizar_acceso.insert_access(inputLine);
+                } catch (Exception e) {
                 System.err.println(e.toString());
                 System.out.print("Error en la lectura");
             }
